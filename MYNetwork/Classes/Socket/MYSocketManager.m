@@ -70,17 +70,18 @@ static MYSocketManager *__onetimeClass;
         }
     }// end of if
     if (error) {
-        NSLog(@"😭😭😭😭😭😭通道连接失败：host:%@,port:%ld",self.host,(long)self.port);
+        NSLog(@"[MYNetwork]😭😭😭😭😭😭通道连接失败：host:%@,port:%ld",self.host,(long)self.port);
     }
 }
 
 - (void)disConnect {
+    //TODO: wmy 查看发送消息中是否还有，再断连
     [_asyncSocket disconnect];
 }
 
 - (void)sendMessage:(MYMessage *)message {
     NSData *data = [self.msgCodec encodeWithMessage:message];
-    NSLog(@"data = %@",data);
+    NSLog(@"[MYNetwork]data = %@",data);
     [_asyncSocket writeData:data withTimeout:-1 tag:message.timestamp];
 }
 
@@ -92,7 +93,7 @@ static MYSocketManager *__onetimeClass;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
-    NSLog(@"😄😄😄😄😄通道连接成功！！！！");
+    NSLog(@"[MYNetwork]yeah！~ 通道连接成功！！！！");
     if ([host isEqualToString:self.host] && port == self.port) {
         for (id<MYSocketManagerDelegate> delegate in self.delegates) {
             if ([delegate respondsToSelector:@selector(didConnectSuccess:)]) {
@@ -112,7 +113,7 @@ static MYSocketManager *__onetimeClass;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    NSLog(@"😯接收到data: %@",data);
+    NSLog(@"[MYNetwork]😯接收到data: %@",data);
     Byte bytes[data.length];
     [data getBytes:bytes length:data.length];
     [self.readBuf writeBytes:bytes length:data.length];
@@ -145,7 +146,12 @@ static MYSocketManager *__onetimeClass;
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
-    
+    NSLog(@"[MYNetwork]😭😭😭😭😭oppes socketdisconnect！");
+    for (id<MYSocketManagerDelegate> delegate in self.delegates) {
+        if ([delegate respondsToSelector:@selector(didConnectFailure:error:)]) {
+            [delegate didConnectFailure:self error:err];
+        }
+    }
 }
 
 

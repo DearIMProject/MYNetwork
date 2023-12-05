@@ -34,6 +34,7 @@ TODO: Add long description of the pod here.
   
   s.dependency 'MYUtils'
   s.dependency 'AFNetworking'
+  s.dependency 'Reachability'
   
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
