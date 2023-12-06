@@ -25,6 +25,7 @@ typedef enum : int {
     MYMessageType_REQUEST_HEART_BEAT,
     MYMessageType_REQUEST_OFFLINE_MSGS,
     MYMessageType_READED_MESSAGE,
+    MYMessageType_SEND_SUCCESS_MESSAGE,
     MYMessageType_ALL
 } MYMessageType;
 

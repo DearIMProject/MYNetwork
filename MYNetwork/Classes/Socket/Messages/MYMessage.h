@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
+typedef enum : NSUInteger {
+    MYMessageStatus_loading,
+    MYMessageStatus_Success,
+    MYMessageStatus_Failure,
+} MYMessageStatus;
 
 @interface MYMessage : NSObject
 
@@ -22,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *content;/**<  内容 */
 @property (nonatomic, assign) MYMessageType messageType;/**<  messageType */
 @property (nonatomic, assign) long timestamp;
+@property (nonatomic, assign) MYMessageStatus sendStatus;/**<  发送状态 */
 
 @end
 
