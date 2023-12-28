@@ -146,7 +146,7 @@ static MYSocketManager *__onetimeClass;
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
-    NSLog(@"[MYNetwork]😭😭😭😭😭oppes socketdisconnect！");
+    NSLog(@"[MYNetwork]😭😭😭😭😭oppes socketdisconnect！%@",err);
     for (id<MYSocketManagerDelegate> delegate in self.delegates) {
         if ([delegate respondsToSelector:@selector(didConnectFailure:error:)]) {
             [delegate didConnectFailure:self error:err];
