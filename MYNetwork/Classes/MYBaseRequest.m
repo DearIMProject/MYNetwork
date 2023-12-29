@@ -10,21 +10,8 @@
 #import <MYUtils/MYUtils.h>
 #import <YYModel/YYModel.h>
 #import "MYNetworkManager.h"
+#import "MYResponseModel.h"
 
-
-@interface _MYResponseModel : NSObject
-
-@property (nonatomic, assign) BOOL success;
-@property (nonatomic, strong) NSDictionary *data;
-@property (nonatomic, assign) NSTimeInterval timestamp;/**<  时间戳 */
-
-@end
-
-@implementation _MYResponseModel
-
-
-
-@end
 @implementation MYBaseRequest
 
 - (void)requestApiName:(NSString *)apiName
@@ -41,7 +28,7 @@
 //    [MYLog debug:url];
     [manager POST:url parameters:dict headers:hearder progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        _MYResponseModel *model = [_MYResponseModel yy_modelWithDictionary:responseObject];
+        MYResponseModel *model = [MYResponseModel yy_modelWithDictionary:responseObject];
         if (model.success) {
             if (success) {
                 success(model.data);

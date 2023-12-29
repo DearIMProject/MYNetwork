@@ -7,8 +7,11 @@
 
 #ifndef MYNetwork_h
 #define MYNetwork_h
+
+#import <AFNetworking/AFNetworking.h>
 #import "MYNetworkManager.h"
 #import "MYBaseRequest.h"
 #import "MYSocketManager.h"
+#import "MYResponseModel.h"
 
 #endif /* MYNetwork_h */

@@ -125,7 +125,11 @@ static int VERSION = 1;
     }
     MYMessageType msgType = [data readInt];
     NSLog(@"[MYNetwork]msgType = %d",msgType);
-    
+    if (msgType == MYMessageType_REQUEST_HEART_BEAT) {
+        MYMessage *message = [[MYMessage alloc] init];
+        message.messageType = MYMessageType_REQUEST_HEART_BEAT;
+        return message;
+    }
     // 时间戳
     if (data.maxCapacity < sizeof(long)) {
         return nil;

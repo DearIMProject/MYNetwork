@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *host;
 @property (nonatomic, assign) NSInteger port;
 
-@property (nonatomic, assign) BOOL isConnect;
+@property (nonatomic, assign, readonly) BOOL isConnect;
 
 - (void)addDelegate:(id<MYSocketManagerDelegate>)delegate;
 - (void)removeDelegate:(id<MYSocketManagerDelegate>)delegate;

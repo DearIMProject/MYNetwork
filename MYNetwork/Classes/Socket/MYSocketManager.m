@@ -6,6 +6,7 @@
 //
 
 #import "MYSocketManager.h"
+#import <MYUtils/MYUtils.h>
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 #import "MYMessageCodec.h"
 #import "MYByteBuf.h"
@@ -74,9 +75,15 @@ static MYSocketManager *__onetimeClass;
     }
 }
 
+- (BOOL)isConnect {
+    return _asyncSocket.isConnected;
+}
+
 - (void)disConnect {
     //TODO: wmy 查看发送消息中是否还有，再断连
-    [_asyncSocket disconnect];
+    if (_asyncSocket.isConnected) {
+        [_asyncSocket disconnect];
+    }
 }
 
 - (void)sendMessage:(MYMessage *)message {
