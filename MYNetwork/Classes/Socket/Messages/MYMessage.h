@@ -26,7 +26,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *content;/**<  内容 */
 @property (nonatomic, assign) MYMessageType messageType;/**<  messageType */
 @property (nonatomic, assign) long timestamp;
-@property (nonatomic, assign) MYMessageStatus sendStatus;/**<  发送状态 */
+@property (nonatomic, assign) MYMessageStatus sendStatus;/**<  消息发送状态 */
+
+@property (nonatomic, strong) NSArray *readList;/**<  已读列表 */
 
 @end
 

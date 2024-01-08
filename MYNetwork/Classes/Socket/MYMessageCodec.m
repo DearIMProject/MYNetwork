@@ -17,7 +17,7 @@ static int VERSION = 1;
 @implementation MYMessageCodec
 
 - (NSData *)encodeWithMessage:(MYMessage *)message {
-    NSLog(@"[MYNetwork]decode a message -----------------------------------------------");
+    NSLog(@"[MYNetwork]decode a message ---------------");
     
     if (!message) {
         return nil;
@@ -60,7 +60,7 @@ static int VERSION = 1;
     Byte abyte[contentLength];
     [datas getBytes:abyte range:NSMakeRange(0, datas.length)];
     [data writeBytes:abyte length:contentLength];
-    NSLog(@"[MYNetwork]decode a message end --------------------------------------------");
+    NSLog(@"[MYNetwork]decode a message end -----------------");
     NSMutableData *result = [NSMutableData data];
     MYByteBuf *lengthBuf = [[MYByteBuf alloc] initWithCapacity:4];
     [lengthBuf writeInt:[data length]];
@@ -75,7 +75,7 @@ static int VERSION = 1;
 
 - (MYMessage *)decodeWithData:(NSData *)oriData {
     
-    NSLog(@"[MYNetwork]decode a message -----------------------------------------------");
+    NSLog(@"[MYNetwork]decode a message ---------------------");
     
     MYByteBuf *data = [[MYByteBuf alloc] initWithData:oriData];
     
@@ -117,14 +117,14 @@ static int VERSION = 1;
         return nil;
     }
     long msgId = [data readLong];
-    NSLog(@"[MYNetwork]msgId = %ld", msgId);
+//    NSLog(@"[MYNetwork]msgId = %ld", msgId);
 
     // 消息类型
     if (data.maxCapacity < sizeof(int)) {
         return nil;
     }
     MYMessageType msgType = [data readInt];
-    NSLog(@"[MYNetwork]msgType = %d",msgType);
+//    NSLog(@"[MYNetwork]msgType = %d",msgType);
     if (msgType == MYMessageType_REQUEST_HEART_BEAT) {
         MYMessage *message = [[MYMessage alloc] init];
         message.messageType = MYMessageType_REQUEST_HEART_BEAT;
@@ -135,45 +135,45 @@ static int VERSION = 1;
         return nil;
     }
     long timestamp = [data readLong];
-    NSLog(@"[MYNetwork]timestamp = %ld",timestamp);
+//    NSLog(@"[MYNetwork]timestamp = %ld",timestamp);
     
     // 发送方
     if (data.maxCapacity < sizeof(long)) {
         return nil;
     }
     long fromId = [data readLong];
-    NSLog(@"[MYNetwork]fromId = %ld",fromId);
+//    NSLog(@"[MYNetwork]fromId = %ld",fromId);
     
     if (data.maxCapacity < sizeof(long)) {
         return nil;
     }
     MYMessageEntityType fromType = [data readByte];
-    NSLog(@"[MYNetwork]fromEntity = %d",fromType);
+//    NSLog(@"[MYNetwork]fromEntity = %d",fromType);
     
     // 接收方
     if (data.maxCapacity < sizeof(long)) {
         return nil;
     }
     long toId = [data readLong];
-    NSLog(@"[MYNetwork]toId = %ld",toId);
+//    NSLog(@"[MYNetwork]toId = %ld",toId);
     if (data.maxCapacity < sizeof(long)) {
         return nil;
     }
     MYMessageEntityType toType = [data readByte];
-    NSLog(@"[MYNetwork]toType = %d",toType);
+//    NSLog(@"[MYNetwork]toType = %d",toType);
     
     // 消息内容长度
     if (data.maxCapacity < sizeof(int)) {
         return nil;
     }
     int length = [data readInt];
-    NSLog(@"[MYNetwork]contentLength = %d",length);
+//    NSLog(@"[MYNetwork]contentLength = %d",length);
     if (data.maxCapacity < length) {
         return nil;
     }
     // 消息内容
     NSString *content = [data readStringWithLength:length];
-    NSLog(@"[MYNetwork]content:%@",content);
+//    NSLog(@"[MYNetwork]content:%@",content);
 
     MYMessage *message = [[MYMessage alloc] init];
     message.msgId = msgId;
@@ -185,7 +185,7 @@ static int VERSION = 1;
     message.toEntity = toType;
     message.content = content;
 
-    NSLog(@"[MYNetwork]decode a message end --------------------------------------------");
+    NSLog(@"[MYNetwork]decode a message end -------------------");
     
     return message;
 }
