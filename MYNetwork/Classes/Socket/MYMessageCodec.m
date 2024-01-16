@@ -17,7 +17,7 @@ static int VERSION = 1;
 @implementation MYMessageCodec
 
 - (NSData *)encodeWithMessage:(MYMessage *)message {
-    NSLog(@"[MYNetwork]decode a message ---------------");
+    NSLog(@"[MYNetwork]encode a message ---------------");
     
     if (!message) {
         return nil;
@@ -60,7 +60,7 @@ static int VERSION = 1;
     Byte abyte[contentLength];
     [datas getBytes:abyte range:NSMakeRange(0, datas.length)];
     [data writeBytes:abyte length:contentLength];
-    NSLog(@"[MYNetwork]decode a message end -----------------");
+    NSLog(@"[MYNetwork]encode a message end -----------------");
     NSMutableData *result = [NSMutableData data];
     MYByteBuf *lengthBuf = [[MYByteBuf alloc] initWithCapacity:4];
     [lengthBuf writeInt:[data length]];
