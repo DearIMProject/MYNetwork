@@ -19,7 +19,7 @@
     [str appendFormat:@"messageType : %d\n",self.messageType];
     [str appendFormat:@"timestamp : %ld\n",self.timestamp];
     [str appendFormat:@"content : %@\n",self.content];
-    
+    [str appendFormat:@"readList : %@\n",self.readList];
     return str;
 }
 
