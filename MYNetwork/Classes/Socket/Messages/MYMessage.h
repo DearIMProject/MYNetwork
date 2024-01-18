@@ -32,4 +32,13 @@ typedef enum : NSUInteger {
 
 @end
 
+@interface MYSuccessContentJsonModel : NSObject
+
+@property (nonatomic, assign) long msgId;/**<  消息id */
+@property (nonatomic, strong) NSString *content;/**<  内容 */
+@property (nonatomic, assign) MYMessageType messageType;/**<  messageType */
+@property (nonatomic, assign) long timestamp;
+
+@end
+
 NS_ASSUME_NONNULL_END
