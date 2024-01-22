@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) MYMessageEntityType toEntity;
 @property (nonatomic, strong) NSString *content;/**<  内容 */
 @property (nonatomic, assign) MYMessageType messageType;/**<  messageType */
-@property (nonatomic, assign) long timestamp;
+@property (nonatomic, assign) long long timestamp;
 @property (nonatomic, assign) MYMessageStatus sendStatus;/**<  消息发送状态 */
 
 @property (nonatomic, strong) NSArray *readList;/**<  已读列表 */
@@ -37,7 +37,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) long msgId;/**<  消息id */
 @property (nonatomic, strong) NSString *content;/**<  内容 */
 @property (nonatomic, assign) MYMessageType messageType;/**<  messageType */
-@property (nonatomic, assign) long timestamp;
+@property (nonatomic, assign) long long timestamp;
 
 @end
 

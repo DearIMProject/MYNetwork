@@ -101,7 +101,7 @@ static int VERSION = 1;
     }
     
     // 序列化
-    if (data.maxCapacity < sizeof(VERSION)) {
+    if (data.maxCapacity < sizeof(int)) {
         return nil;
     }
     MYMessageSerializeType type = [data readByte];
@@ -156,7 +156,7 @@ static int VERSION = 1;
     }
     long toId = [data readLong];
     NSLog(@"[MYNetwork]toId = %ld",toId);
-    if (data.maxCapacity < sizeof(long)) {
+    if (data.maxCapacity < sizeof(Byte)) {
         return nil;
     }
     MYMessageEntityType toType = [data readByte];

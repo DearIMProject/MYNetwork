@@ -94,32 +94,18 @@
 
 - (long)readLong {
     long value;
-    NSRange range = NSMakeRange(_position, sizeof(value));
+    NSRange range = NSMakeRange(_position, sizeof(uint64_t));
     [self.data getBytes:&value range:range];
-    Byte byte[] = {0,0,0,0,0,0,0,0};
-
-    byte[0] = (value >> 56) & 0xFF;
-    byte[1] = (value >> 48) & 0xFF;
-    byte[2] = (value >> 40) & 0xFF;
-    byte[3] = (value >> 32) & 0xFF;
-    byte[4] = (value >> 24) & 0xFF;
-    byte[5] = (value >> 16) & 0xFF;
-    byte[6] = (value >> 8) & 0xFF;
-    byte[7] = value & 0xFF;
-
-    long result;
-    result = (long) (
-                    (byte[0] & 0xFF)
-                    | ((byte[1] & 0xFF)<<8)
-                    | ((byte[2] & 0xFF)<<16)
-                    | ((byte[3] & 0xFF)<<24)
-                    | ((byte[4] & 0xFF)<<32)
-                    | ((byte[5] & 0xFF)<<40)
-                    | ((byte[6] & 0xFF)<<48)
-                    | ((byte[7] & 0xFF)<<56)
-                    );
-    _position += sizeof(value);
+    long result = swapInt64(value);
+    _position += sizeof(uint64_t);
     return result;
+}
+
+// 大小端转换64位长整数
+uint64_t swapInt64(uint64_t val) {
+    val = ((val << 8) & 0xFF00FF00FF00FF00ULL ) | ((val >> 8) & 0x00FF00FF00FF00FFULL );
+    val = ((val << 16) & 0xFFFF0000FFFF0000ULL ) | ((val >> 16) & 0x0000FFFF0000FFFFULL );
+    return (val << 32) | (val >> 32);
 }
 
 - (void)writeByte:(Byte)value {
